@@ -49,8 +49,12 @@ const Community = () => {
       }
   
       const newPost = await response.json();
-  
-      setPosts([newPost.post, ...posts]);
+      const loggedInUser = JSON.parse(localStorage.getItem('user'));
+
+      setPosts([
+     { ...newPost.post, user_id: { name: loggedInUser?.name || 'Unknown' } },
+      ...posts,
+     ]);
       setNewPostTitle('');
       setNewPostContent('');
       setShowNewPostForm(false);

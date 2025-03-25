@@ -92,6 +92,7 @@ userRoute.post("/signin", async (req, res) => {
 
     if (isPasswordCorrect) {
       const userId = found._id;
+      const name = found.name;
       const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: "1h" });
       console.log(token)
     
@@ -102,7 +103,7 @@ userRoute.post("/signin", async (req, res) => {
           sameSite: "None",
           maxAge: 3600000, 
         })
-        .json({ message: "User signed in" });
+        .json({ message: "User signed in", name });
 
     } else {
       return res.status(401).json({ error: "Incorrect Password" });

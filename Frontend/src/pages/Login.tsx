@@ -38,13 +38,18 @@ const Login = () => {
           password: data.password,
     },{ withCredentials: true });
     console.log('Login form submitted with:', data);
-    
+
+    if (response.data.name){
+      localStorage.setItem("user", JSON.stringify({ name: response.data.name })); // Store name
+    }
     toast({
       title: "Success",
       description: "You have successfully logged in",
     });
     
-    setTimeout(() => navigate('/'), 500);
+    
+    setTimeout(() => window.location.href = '/', 1000);
+
   }catch(error){
     console.error('Login failed:', error);
     toast({
